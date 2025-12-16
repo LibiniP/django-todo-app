@@ -1,0 +1,23 @@
+<h2>My To‑Do List</h2>
+
+
+<form method="POST">
+{% csrf_token %}
+<input type="text" name="title" placeholder="Enter task" required>
+<button type="submit">Add</button>
+</form>
+
+
+<ul>
+{% for task in tasks %}
+<li>
+{% if task.completed %}
+<strike>{{ task.title }}</strike>
+{% else %}
+{{ task.title }}
+<a href="{% url 'complete' task.id %}">Done</a>
+{% endif %}
+<a href="{% url 'delete' task.id %}">Delete</a>
+</li>
+{% endfor %}
+</ul>
